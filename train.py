@@ -91,7 +91,7 @@ for epoch in range(1, n_epochs+1):
         # accuracy
         pred = torch.argmax(output, dim=1)
         correct = pred == y.view(*pred.shape)
-        accuracy += torch.mean(correct)
+        accuracy += torch.sum(correct).item()
     
     # Caculate loss and accuracy
     train_loss = train_loss / len(trainloader.dataset)
@@ -99,7 +99,7 @@ for epoch in range(1, n_epochs+1):
     accuracy = accuracy / len(validloader.dataset) * 100
     
     # Print loss
-    print('Epoch: {} \tTraining Loss: {:.6f} \tValidation Loss: {:.6f} \tValidation Accuracy: {:2d}%'.format(epoch, train_loss, valid_loss, accuracy))
+    print('Epoch: {} \tTraining Loss: {:.6f} \tValidation Loss: {:.6f} \tValidation Accuracy: {:.3f}%'.format(epoch, train_loss, valid_loss, accuracy))
     
     # save model if validation loss has decreased
     if valid_loss <= valid_loss_min:
